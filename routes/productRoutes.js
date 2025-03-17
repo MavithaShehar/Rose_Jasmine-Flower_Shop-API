@@ -1,5 +1,5 @@
 const express = require("express");
-const Item = require("../models/Item");
+const Item = require("../models/Products");
 const { verifyToken, isAdmin } = require("../middleware/authMiddleware");
 
 const router = express.Router();
