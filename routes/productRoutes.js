@@ -1,10 +1,12 @@
 const express = require("express");
-const { createProduct, getAllProducts } = require("../controllers/productController");
+const { createProduct, getAllProducts, updateProduct, deleteProduct } = require("../controllers/productController");
 const { verifyToken, isAdmin } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
 router.post("/add", verifyToken, isAdmin, createProduct); // Correctly use controller functions
 router.get("/", getAllProducts); // Correctly use controller functions
+router.put("/:id", verifyToken, isAdmin, updateProduct); // Update
+router.delete("/:id", verifyToken, isAdmin, deleteProduct); // Delete
 
 module.exports = router;
