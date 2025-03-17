@@ -1,21 +1,10 @@
 const express = require("express");
-const Item = require("../models/Products");
+const { createProduct, getAllProducts } = require("../controllers/productController");
 const { verifyToken, isAdmin } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-// Add Item (Only Admin)
-router.post("/add", verifyToken, isAdmin, async (req, res) => {
-    const { name, price, color, image } = req.body;
-    const newItem = new Item({ name, price, color, image });
-    await newItem.save();
-    res.json({ message: "Item added successfully" });
-});
-
-// Get All Items
-router.get("/", async (req, res) => {
-    const items = await Item.find();
-    res.json(items);
-});
+router.post("/add", verifyToken, isAdmin, createProduct); // Correctly use controller functions
+router.get("/", getAllProducts); // Correctly use controller functions
 
 module.exports = router;
