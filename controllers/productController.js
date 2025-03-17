@@ -3,12 +3,12 @@ const Product = require("../models/Products");
 // Add Product (Admin Only)
 const createProduct = async (req, res) => {
     try {
-        const { name, price, color, image } = req.body;
-        if (!name || !price || !color || !image) {
+        const { name, price, color, imageurl, category, status } = req.body;
+        if (!name || !price || !color || !imageurl || !category || !status) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-        const newProduct = new Product({ name, price, color, image });
+        const newProduct = new Product({ name, price, color, imageurl, category, status });
         await newProduct.save();
 
         res.status(201).json({ message: "Product added successfully", product: newProduct });
