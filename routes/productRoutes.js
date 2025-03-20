@@ -7,7 +7,6 @@ const router = express.Router();
 router.post("/add", verifyToken, isAdmin, createProduct); // Correctly use controller functions
 router.get("/", getAllProducts); // Correctly use controller functions
 router.put("/:id", verifyToken, isAdmin, updateProduct); // Update
-router.put("/status/:id", verifyToken, isAdmin, updateProduct,updateProductStatus); // Update status
 router.delete("/:id", verifyToken, isAdmin, deleteProduct); // Delete
 
 module.exports = router;

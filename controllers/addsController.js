@@ -43,6 +43,26 @@ const updateAdd = async (req, res) => {
     }
 };
 
+
+// Update advertisement status
+const updateAdvertisement = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body; // Assuming the new status comes from the request body
+
+        // Only update the status field
+       
+        const updatedAdvertisement = await Adds.findByIdAndUpdate(id, { status }, { new: true });
+        if (!updatedAdvertisement) {
+            return res.status(404).json({ message: "Advertisement not found" });
+        }
+
+        res.status(200).json({ message: "Advertisement status updated successfully", add: updatedAdvertisement });
+    } catch (error) {
+        res.status(500).json({ message: "Server x error", error: error.message });
+    }
+};
+
 // Delete Add
 const deleteAdd = async (req, res) => {
     try {
@@ -59,4 +79,4 @@ const deleteAdd = async (req, res) => {
     }
 };
 
-module.exports = { createAdd, getAllAdds, updateAdd, deleteAdd };
+module.exports = { createAdd, getAllAdds, updateAdd, deleteAdd , updateAdvertisement};
