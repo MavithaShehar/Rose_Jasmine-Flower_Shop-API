@@ -3,12 +3,12 @@ const Adds = require("../models/Adds");
 // Add Add (Admin Only)
 const createAdd = async (req, res) => {
     try {
-        const { imageurl } = req.body;
-        if (!imageurl) {
+        const { imageurl, status } = req.body;
+        if (!imageurl || !status) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-        const newAdd = new Adds({ imageurl });
+        const newAdd = new Adds({ imageurl , status});
         await newAdd.save();
 
         res.status(201).json({ message: "Add added successfully", add: newAdd });

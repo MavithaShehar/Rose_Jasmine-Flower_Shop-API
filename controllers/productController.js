@@ -43,6 +43,25 @@ const updateProduct = async (req, res) => {
     }
 };
 
+// Update Product status
+const updateProductStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body; // Assuming the new status comes from the request body
+
+        // Only update the status field
+        const updatedProduct = await Product.findByIdAndUpdate(id, { status }, { new: true });
+
+        if (!updatedProduct) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        res.status(200).json({ message: "Product status updated successfully", product: updatedProduct });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
+
 // Delete Product
 const deleteProduct = async (req, res) => {
     try {
@@ -59,4 +78,4 @@ const deleteProduct = async (req, res) => {
     }
 };
 
-module.exports = { createProduct, getAllProducts, updateProduct, deleteProduct };
+module.exports = { createProduct, getAllProducts, updateProduct, deleteProduct, updateProductStatus };
